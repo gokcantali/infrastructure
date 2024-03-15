@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otel-backend
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: otel-backend
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: otel-backend
+  template:
+    metadata:
+      labels:
+        app: otel-backend
+    spec:
+      containers:
+      - name: otel-backend
+        image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+        ports:
+        - containerPort: 8000
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+

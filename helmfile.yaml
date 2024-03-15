@@ -1,0 +1,48 @@
+repositories:
+  - name: cilium
+    url: https://helm.cilium.io/
+  - name: jetstack
+    url: https://charts.jetstack.io
+  - name: open-telemetry
+    url: https://open-telemetry.github.io/opentelemetry-helm-charts
+
+releases:
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    values:
+      - installCRDs: true
+  - name: cilium
+    namespace: kube-system
+    chart: cilium/cilium
+    version: 1.15.2
+    values:
+      - operator:
+          replicas: 1
+        hubble:
+          relay:
+            enabled: true
+          ui:
+            enabled: true
+          metrics:
+            enabled:
+              - dns:query;ignoreAAAA
+              - drop
+              - tcp
+              - flow
+              - icmp
+              - http
+          tls:
+            enabled: true
+  - name: otel-backend
+    namespace: otel-backend
+    chart: ./charts/otel-backend
+  - name: opentelemetry-operator
+    namespace: otel
+    chart: open-telemetry/opentelemetry-operator
+    version: 0.49.0
+    values:
+      - admissionWebhooks:
+          certManager:
+            enabled: false
+            autoGenerateCert: true
