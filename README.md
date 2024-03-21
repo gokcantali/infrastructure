@@ -30,3 +30,17 @@ helmfile apply
 # install the open-telemetry collector for hubble
 kubectl apply -f ./collector.yaml
 ```
+
+## Add/remove podinfo dummy data generation
+
+```
+# add
+kubectl create ns podinfo
+kubectl apply -f ./podinfo.yaml
+kubectl apply -k github.com/cilium/kustomize-bases/podinfo
+
+# remove
+kubectl delete -f ./podinfo.yaml
+kubectl delete -k github.com/cilium/kustomize-bases/podinfo
+kubectl delete ns podinfo
+```
