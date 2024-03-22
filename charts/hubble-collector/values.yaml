@@ -1,0 +1,6 @@
+namespace: kube-system
+
+image:
+  name: ghcr.io/cilium/hubble-otel/otelcol
+  pullPolicy: Always
+  tag: "v0.1.1"

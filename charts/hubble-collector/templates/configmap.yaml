@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otelcol-config
+  namespace: {{ .Values.namespace }}
+data:
+  config.yaml: |
+    receivers:
+      hubble:
+        endpoint: ${NODE_IP}:4244
+        tls:
+          insecure_skip_verify: true
+          ca_file: /var/run/hubble-tls/ca.crt
+          cert_file: /var/run/hubble-tls/client.crt
+          key_file: /var/run/hubble-tls/client.key
+    exporters:
+      otlphttp:
+        endpoint: "http://otel-backend.otel-backend.svc.cluster.local:8000"
+    service:
+      pipelines:
+        traces:
+          receivers: [hubble]
+          exporters: [otlphttp]

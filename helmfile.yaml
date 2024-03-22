@@ -46,3 +46,6 @@ releases:
           certManager:
             enabled: false
             autoGenerateCert: true
+  - name: hubble-collector
+    namespace: kube-system
+    chart: ./charts/hubble-collector

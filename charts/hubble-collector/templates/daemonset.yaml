@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: otelcol-daemonset
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: otelcol
+  template:
+    metadata:
+      labels:
+        app: otelcol
+    spec:
+      containers:
+      - name: otelcol
+        image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+        args:
+          - "--config=/etc/otel/config.yaml"
+        env:
+          - name: NODE_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+        volumeMounts:
+          - name: otelcol-config
+            mountPath: /etc/otel
+            readOnly: true
+          - name: hubble-tls
+            mountPath: /var/run/hubble-tls
+            readOnly: true
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+      volumes:
+        - name: otelcol-config
+          configMap:
+            name: otelcol-config
+        - name: hubble-tls
+          projected:
+            defaultMode: 420
+            sources:
+              - secret:
+                  name: hubble-relay-client-certs
+                  items:
+                    - key: tls.crt
+                      path: client.crt
+                    - key: tls.key
+                      path: client.key
+                    - key: ca.crt
+                      path: ca.crt
