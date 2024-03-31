@@ -23,6 +23,6 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         resources:
           limits:
-            memory: 512Mi
+            memory: 1024Mi
           requests:
-            memory: 256Mi
+            memory: 512Mi
