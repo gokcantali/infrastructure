@@ -37,6 +37,8 @@ releases:
   - name: otel-backend
     namespace: otel-backend
     chart: ./charts/otel-backend
+    labels:
+      app: xxx
   - name: opentelemetry-operator
     namespace: otel
     chart: open-telemetry/opentelemetry-operator
