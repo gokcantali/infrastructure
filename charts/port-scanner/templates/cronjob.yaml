@@ -10,7 +10,7 @@ spec:
       template:
         metadata:
           labels:
-            is_anomaly: true
+            is_anomaly: "true"
             app: port-scanner
         spec:
           containers:
@@ -22,12 +22,12 @@ spec:
                   subnet="10.0.0"
                   for i in {1..254}; do
                     ip="${subnet}.${i}"
-                    nmap -Pn -T5 --max-retries 1 --host-timeout 100ms -p- $ip &> /dev/null
-                    if [ $? -eq 0 ]; then
-                      echo "Scanning $ip"
+                    echo "Scanning $ip"
+                    if nmap -Pn -T5 --max-retries 1 --host-timeout 100ms -p- $ip &> /dev/null; then
+                      echo "Host $ip is up. Detailed scan:"
                       nmap -T5 -p- $ip
                     else
-                      echo "$ip is down"
+                      echo "Host $ip is down"
                     fi
                   done
               imagePullPolicy: Always

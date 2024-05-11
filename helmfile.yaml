@@ -71,6 +71,6 @@ releases:
       dos: true
   - name: port-scanner
     namespace: port-scanner
-    chart: ./charts/portscanner
+    chart: ./charts/port-scanner
     labels:
       scan: true
