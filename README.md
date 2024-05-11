@@ -25,22 +25,27 @@ export KUBECONFIG="$PWD/config"
 
 # install the necessary charts
 # (cert-manager, cilium, open-telemetry, backend)
-helmfile apply
+helmfile apply -l base=true
 
 # install the open-telemetry collector for hubble
 kubectl apply -f ./collector.yaml
 ```
 
-## Add/remove podinfo dummy data generation
+## Prepare attack scenario
+
+```bash
+# install the attack scenario
+helmfile apply -l attack=true
+
+# setup the specific attack
+helmfile apply -l [ scan=true | dos=true ]
+
+# destroy the attack scenario
+helmfile delete -l attack=true -l [ scan=true | dos=true ]
+```
+
+Before destroying the generated data can be downloaded from:
 
 ```
-# add
-kubectl create ns podinfo
-kubectl apply -f ./podinfo.yaml
-kubectl apply -k github.com/cilium/kustomize-bases/podinfo
-
-# remove
-kubectl delete -f ./podinfo.yaml
-kubectl delete -k github.com/cilium/kustomize-bases/podinfo
-kubectl delete ns podinfo
+http://160.85.252.183/traces.zip
 ```
