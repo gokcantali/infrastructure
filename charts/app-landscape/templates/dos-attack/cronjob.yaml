@@ -4,7 +4,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: ddos-simulator
-  namespace: ddos
+  namespace: dos
 spec:
   schedule: "*/5 * * * *"  # Runs every 15 minutes, adjust as necessary
   jobTemplate:

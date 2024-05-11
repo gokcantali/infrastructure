@@ -37,8 +37,8 @@ releases:
   - name: otel-backend
     namespace: otel-backend
     chart: ./charts/otel-backend
-    labels:
-      app: xxx
+    labels:      
+      attack: true
   - name: opentelemetry-operator
     namespace: otel
     chart: open-telemetry/opentelemetry-operator
@@ -54,3 +54,15 @@ releases:
   - name: app-landscape
     namespace: app-landscape
     chart: ./charts/app-landscape
+    labels:
+      attack: true
+  - name: dos-attack
+    namespace: dos
+    chart: ./charts/dos-attack
+    labels:
+      dos: true
+  - name: port-scanner
+    namespace: port-scanner
+    chart: ./charts/portscanner
+    labels:
+      scan: true
