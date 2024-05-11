@@ -1,0 +1,30 @@
+{{- range .Values.namespaces }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-{{ . }}
+  namespace: {{ . }}
+  labels:
+    app: postgres
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: nginx
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
+
+---
+  {{- end }}
+  
+  
