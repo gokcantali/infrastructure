@@ -40,8 +40,8 @@ helmfile apply -l attack=true
 # setup the specific attack
 helmfile apply -l [ scan=true | dos=true ]
 
-# destroy the attack scenario
-helmfile delete -l attack=true -l [ scan=true | dos=true ]
+# destroy all the attack scenario
+helmfile destroy -l attack=true -l scan=true -l dos=true ]
 ```
 
 Before destroying the generated data can be downloaded from:
