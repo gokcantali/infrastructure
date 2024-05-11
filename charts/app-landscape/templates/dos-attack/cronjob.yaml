@@ -1,3 +1,5 @@
+{{- range .Values.namespaces }}
+  
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -16,5 +18,9 @@ spec:
           containers:
             - name: hey
               image: rakyll/hey
-              command: ["sh", "-c", "hey -z 60s -c 50 http://10.0.0.1/red"]
+              command: ["sh", "-c", "hey -z 30s -c 50 http://160.85.252.183/{{ . }}"]
           restartPolicy: OnFailure
+
+
+---
+  {{- end }}
