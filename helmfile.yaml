@@ -51,3 +51,6 @@ releases:
   - name: hubble-collector
     namespace: kube-system
     chart: ./charts/hubble-collector
+  - name: app-landscape
+    namespace: app-landscape
+    chart: ./charts/app-landscape

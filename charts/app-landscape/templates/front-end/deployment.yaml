@@ -1,0 +1,45 @@
+{{- range .Values.namespaces }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-end-{{ . }}
+  namespace: {{ . }}
+  labels:
+    app: front-end
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: front-end
+  template:
+    metadata:
+      labels:
+        app: front-end
+    spec:
+      containers:
+      - name: front-end
+        image: nginx
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            nginx -g 'daemon off;' &  # Start Nginx in the background
+                        
+            # Function to send curl requests
+            while true; do
+              for i in {1..20}; do
+                curl http://back-end:3000/
+                sleep $((RANDOM % 3 + 1)) # Sleep between 1 and 3 seconds randomly
+              done
+            done
+
+            # Wait indefinitely
+            tail -f /dev/null
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
+
+---
+  {{- end }}
+  
+  
