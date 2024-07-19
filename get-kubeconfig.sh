@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-scp ubuntu@bachelor:/home/ubuntu/.kube/config ./config
-sed -i "s/127.0.0.1/$1/" config
+scp ubuntu@pileus:/home/ubuntu/.kube/config ./config
+sed -i.bak "s/127.0.0.1/$1/" ./config
+rm -f config.bak

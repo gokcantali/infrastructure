@@ -32,6 +32,9 @@ helmfile apply -l base=true
 ## Prepare attack scenario
 
 ```bash
+# create different namespaces
+./add_load.sh
+
 # install the attack scenario
 helmfile apply -l attack=true
 

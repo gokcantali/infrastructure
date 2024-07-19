@@ -18,7 +18,7 @@ spec:
           containers:
             - name: hey
               image: rcmorano/docker-hey
-              command: ["sh", "-c", "hey -z 30s -c 50 http://160.85.255.230/{{ . }}"]
+              command: ["sh", "-c", "hey -z 30s -c 50 http://160.85.255.188/{{ . }}"]
           restartPolicy: OnFailure
 
 ---
