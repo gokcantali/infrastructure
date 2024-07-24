@@ -18,7 +18,7 @@ releases:
   - name: cilium
     namespace: kube-system
     chart: cilium/cilium
-    version: 1.15.2
+    version: 1.15.7
     labels:
       base: true
     values:
@@ -39,6 +39,19 @@ releases:
               - http
           tls:
             enabled: true
+      - ipam:
+          operator:
+            clusterPoolIPv4PodCIDRList: 10.42.0.0/16
+      - ipv4NativeRoutingCIDR: 10.42.0.0/16
+      - ipv4:
+          enabled: true
+      - loadBalancer:
+          mode: dsr
+      - kubeProxyReplacement: strict
+      - routingMode: native
+      - autoDirectNodeRoutes: true
+      - l2announcements:
+          enabled: true
   - name: otel-backend
     namespace: otel-backend
     chart: ./charts/otel-backend

@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 
 
-ssh ubuntu@pileus "curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='--flannel-backend=none --disable-network-policy --write-kubeconfig-mode 644 --tls-san $1' sh -"
+ssh ubuntu@pileus "curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='\
+--flannel-backend=none \
+--disable-network-policy \
+--disable \"servicelb\" \
+--disable \"traefik\" \
+--disable \"metrics-server\" \
+--write-kubeconfig-mode 644 \
+--tls-san $1' sh -"
 
 ssh ubuntu@pileus "mkdir -p ~/.kube"
 ssh ubuntu@pileus "cp /etc/rancher/k3s/k3s.yaml ~/.kube/config"

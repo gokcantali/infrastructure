@@ -2,13 +2,13 @@
 
 ## Set up
 
-Configure the work VM similar to the below config
-in `~/.ssh/config`, replacing `<IP_ADDRESS>` and `<SSH_KEY_LOCATION>` with what you personally
+Configure the master node VM similar to the below config
+in `~/.ssh/config`, replacing `<PUBLIC_IP_MASTER>` and `<SSH_KEY_LOCATION>` with what you personally
 have in your system.
 
 ```bash
 Host                    pileus
-  Hostname              <IP_ADDRESS>
+  Hostname              <PUBLIC_IP_MASTER>
   User                  ubuntu
   IdentityFile          <SSH_KEY_LOCATION>
 ```
@@ -19,15 +19,21 @@ Then set up k3s and the cluster infrastructure with the below scripts.
 
 ```bash
 # install the k3s master node (without flannel)
-# and copy the kubeconfig to your host
-./install-master.sh <IP_ADDRESS>
+./install-master.sh <PUBLIC_IP_MASTER>
 
+# (Optional) install k3s worker nodes by providing
+# the Public IP of master node as the first argument
+# and the internal IPs of all the worker nodes as following arguments
+./install-nodes.sh <PUBLIC_IP_MASTER> <INTERNAL_IP_WORKER_1> <INTERNAL_IP_WORKER_2> <INTERNAL_IP_WORKER_3> ... 
+
+# copy the kubeconfig to your host
 export KUBECONFIG="$PWD/config"
 
 # install the necessary charts
 # (cert-manager, cilium, open-telemetry, backend)
 helmfile apply -l base=true
 ```
+
 
 ## Prepare attack scenario
 
@@ -48,5 +54,5 @@ helmfile destroy -l attack=true -l scan=true -l dos=true
 Before destroying the generated data can be downloaded from:
 
 ```
-http://<IP_ADDRESS>/traces.zip
+http://<PUBLIC_IP_MASTER>/traces.zip
 ```
