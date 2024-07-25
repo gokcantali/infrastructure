@@ -4,9 +4,6 @@
 ssh ubuntu@pileus "curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='\
 --flannel-backend=none \
 --disable-network-policy \
---disable \"servicelb\" \
---disable \"traefik\" \
---disable \"metrics-server\" \
 --write-kubeconfig-mode 644 \
 --tls-san $1' sh -"
 
