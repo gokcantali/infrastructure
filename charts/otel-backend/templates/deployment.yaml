@@ -15,6 +15,16 @@ spec:
       labels:
         app: otel-backend
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: name
+                    operator: In
+                    values:
+                      - master
       containers:
       - name: otel-backend
         image: {{ .Values.image.name }}:{{ .Values.image.tag }}
@@ -26,3 +36,4 @@ spec:
             memory: 2048Mi
           requests:
             memory: 1024Mi
+
