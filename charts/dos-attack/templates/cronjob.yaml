@@ -1,10 +1,10 @@
-{{- range .Values.namespaces }}
+{{- range $index, $ns := .Values.namespaces }}
   
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ddos-simulator-{{ . }}
-  namespace: {{ . }}
+  name: ddos-simulator-{{ $ns }}
+  namespace: {{ $ns }}
 spec:
   schedule: "*/5 * * * *"
   jobTemplate:
@@ -18,7 +18,7 @@ spec:
           containers:
             - name: hey
               image: rcmorano/docker-hey
-              command: ["sh", "-c", "hey -z 30s -c 50 http://160.85.255.188/{{ . }}"]
+              command: ["sh", "-c", "hey -z 30s -c 50 http://{{ index $.Values.targets $index }}"]
           restartPolicy: OnFailure
 
 ---
