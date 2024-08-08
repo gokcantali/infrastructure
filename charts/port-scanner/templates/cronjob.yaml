@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: port-scanner
-  namespace: blue
+  namespace: orange
 spec:
   schedule: "*/5 * * * *"
   jobTemplate:
@@ -19,7 +19,7 @@ spec:
               command: ["/bin/bash", "-c"]
               args:
                 - |
-                  subnet="10.0.0"
+                  subnet="10.42.1"
                   for i in {1..254}; do
                     ip="${subnet}.${i}"
                     echo "Scanning $ip"

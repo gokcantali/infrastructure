@@ -81,3 +81,21 @@ releases:
     chart: ./charts/port-scanner
     labels:
       scan: true
+  - name: vuln-scanner
+    namespace: owasp-zap
+    chart: ./charts/owasp-zap
+    labels:
+      zap: true
+    values:
+      - zapcli:
+          image:
+            registry: https://hub.docker.com/r
+            repository: zaproxy/zap-bare
+            tag: 2.14.0
+          debug:
+            enabled: true
+          spider:
+            enabled: false
+          recursive:
+            enabled: false
+          targetHost: http://10.42.1.107:3000/

@@ -6,7 +6,7 @@ metadata:
   name: ddos-simulator-{{ $ns }}
   namespace: {{ $ns }}
 spec:
-  schedule: "*/5 * * * *"
+  schedule: "12 * * * *"
   jobTemplate:
     spec:
       template:
