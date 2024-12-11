@@ -15,7 +15,7 @@ data:
           key_file: /var/run/hubble-tls/client.key
     exporters:
       otlphttp:
-        endpoint: "${NODE_IP}:8000"
+        endpoint: "http://otel-backend.otel-backend.svc.cluster.local:8000"
     service:
       pipelines:
         traces:

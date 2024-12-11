@@ -11,8 +11,9 @@ releases:
     namespace: cert-manager
     chart: jetstack/cert-manager
     values:
-      - crds.enabled: true
-      - crds.keep: false
+      - crds:
+          enabled: true
+          keep: false
     labels:
       base: true
   - name: cilium
