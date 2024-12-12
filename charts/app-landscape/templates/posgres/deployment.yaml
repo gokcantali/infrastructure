@@ -16,6 +16,7 @@ spec:
     metadata:
       labels:
         app: postgres
+        anomaly_class: '0'
     spec:
       containers:
         - name: postgres

@@ -16,6 +16,7 @@ spec:
     metadata:
       labels:
         app: front-end
+        anomaly_class: '0'
     spec:
       containers:
       - name: front-end

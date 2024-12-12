@@ -12,6 +12,7 @@ spec:
           labels:
             is_anomaly: "true"
             app: port-scanner
+            anomaly_class: '2'
         spec:
           containers:
             - name: port-scanner

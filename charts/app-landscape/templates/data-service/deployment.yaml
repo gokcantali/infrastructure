@@ -16,6 +16,7 @@ spec:
     metadata:
       labels:
         app: data-service
+        anomaly_class: '0'
     spec:
       containers:
       - name: data-service

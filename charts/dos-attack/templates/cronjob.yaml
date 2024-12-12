@@ -14,6 +14,7 @@ spec:
           labels:
             is_anomaly: "true"
             app: ddos-simulator
+            anomaly_class: '1'
         spec:
           containers:
             - name: hey

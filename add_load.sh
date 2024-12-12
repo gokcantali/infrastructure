@@ -57,6 +57,7 @@ spec:
     metadata:
       labels:
         app: $app_name
+        anomaly_class: 0
     spec:
       containers:
       - name: color-app

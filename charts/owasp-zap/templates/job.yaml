@@ -16,6 +16,7 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app: zap
         is_anomaly: "true"
+        anomaly_class: '3'
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
